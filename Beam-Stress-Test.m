@@ -2,9 +2,9 @@ clc
 clear all
 
 E0=200*10^9; I0=29*10^-6; h=0.15; l=1; F0=60*10^3;
-q0=2.4*10^3;  % on introduit q0 dans le cas de q(x)=q0*x/l (cas du tp) 
+q0=2.4*10^3;        % on introduit q0 dans le cas de q(x)=q0*x/l (cas du tp) 
 nh=2;               % sinon on introduit le vecteur q (de meme dimension que le maillage)
-                         % de meme pour E et I
+                    % de meme pour E et I
 function y=fpsi(i,x,he)
   if i==1
     y=1-3*x.^2/he^2 +2*x.^3/he^3;
@@ -78,7 +78,7 @@ function [k,f]=assemblage(nh,l,E,I,q,m)
   while p<2*nh
     m=m+1; n=n+1;
     x1=x(m);x2=x(n);
-    z=101;          % on prend la partie de E et I qui appartient a l'element
+    z=101;             % on prend la partie de E et I qui appartient a l'element
     Eele=linspace(E(m),E(n),z); 
     Iele=linspace(I(m),I(n),z); 
     for i=1:4
@@ -95,7 +95,7 @@ function [k,f]=assemblage(nh,l,E,I,q,m)
   while p<2*nh
     m=m+1; n=n+1;
     x1=x(m);x2=x(n);
-    z=101;                                    % on prend la partie de q qui appartient a l'element
+    z=101;                         % on prend la partie de q qui appartient a l'element
     qele=linspace(q(m),q(n),z);    % z represente le nombre d'element du vecteur q qui doit etre le meme que celui de x dans fele()
     for i=1:4
       f(p+i)=f(p+i)+fele(x1,x2,qele)(i);
@@ -115,7 +115,7 @@ function U=dep(nh,l)
 endfunction
 
 
-function Q=efforts(nh,l,F0)             % cond aux lims de la var secondaire
+function Q=efforts(nh,l,F0)        % cond aux lims de la var secondaire
   Q=zeros(2*nh+2,1);
   Q(1)=NaN;
   Q(2)=NaN;
@@ -128,9 +128,9 @@ endfunction
 
 #Q=efforts(nh,l,F0)
 
-function [vect,mat,eff]=inconnu(U,K,F)  % retourne le vecteur compose uniquement
-  n=length(U);                                           % des valeurs inconnues et la matrice k
-  vect=U; mat=K; eff=F;                           % correspondante
+function [vect,mat,eff]=inconnu(U,K,F)         % retourne le vecteur compose uniquement
+  n=length(U);                                 % des valeurs inconnues et la matrice k
+  vect=U; mat=K; eff=F;                        % correspondante
   while n>0
     if isnan(vect(n))==0   % on enleve les valeurs != nan qui sont connues
       vect(n)=[];
@@ -145,7 +145,7 @@ endfunction
 
 function U=resolutionU(U,K,F)
   [U0,K0,F0]=inconnu(U,K,F);
-  U0=K0\F0;                   % on calcule les valeurs inconnues de U
+  U0=K0\F0;                 % on calcule les valeurs inconnues de U
   j=1;
   for i=1:length(U)         % on met les nouvelles valeurs calculees de U
     if isnan(U(i))==1       % dans les composantes NaN
@@ -157,9 +157,9 @@ endfunction
 
 
 function Q=Qele(e,u,x,E,I,q)            % retourne le vecteur Q de l'element e.
-  x1=x(e);                                           % on doit recalculer K et F de l'element e
-  x2=x(e+1);                                      % et utiliser la partie du deplacement u
-  he=x2-x1;                                        % relative a l'element en question.
+  x1=x(e);                              % on doit recalculer K et F de l'element e
+  x2=x(e+1);                            % et utiliser la partie du deplacement u
+  he=x2-x1;                             % relative a l'element en question.
   z=101;         
   Eele=linspace(E(e),E(e+1),z); % on prend la partie de E, I et q qui appartient a l'element
   Iele=linspace(I(e),I(e+1),z); 
@@ -229,8 +229,8 @@ function main()
   
   % valeurs par la MEF
   for e=1:nh                                            % il y a des valeurs qui se repetent
-    Ty_mef(e)=-Qele(e,u,x,E,I,q)(1);          % pour des elements consecutifs
-  endfor                                                  % => on prend une valeur par element
+    Ty_mef(e)=-Qele(e,u,x,E,I,q)(1);                    % pour des elements consecutifs
+  endfor                                                % => on prend une valeur par element
   Ty_mef(nh+1)=Qele(nh,u,x,E,I,q)(3); 
   Ty_mef
   
