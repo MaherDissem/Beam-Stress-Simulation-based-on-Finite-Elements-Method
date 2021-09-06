@@ -1,5 +1,6 @@
 # Beam-Stress-Simulation-based-on-Finite-Elements-Method
 
+
 <img src="./Images/situation.png" alt="drawing" width="350"/>
 
 Le but de ce TP est d’implémenter la méthode des éléments finis pour la résolution du cas d’une poutre soumise à la flexion sous la densité de force linéique q et d’une force ponctuelle localisée à son extrémité avec le langage de programmation Matlab.
